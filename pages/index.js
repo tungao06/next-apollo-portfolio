@@ -1,40 +1,10 @@
-import Head from "next/head";
-import Image from "next/image";
-import client from "../config/apollo-client";
-import { gql } from "@apollo/client";
-import styles from "../styles/Home.module.css";
+import styled from "styled-components";
 
-export default function Home({ countries }) {
-  return (
-    <div className={styles.grid}>
-      {countries.map((country) => (
-        <div key={country.code} className={styles.card}>
-          <h3>{country.name}</h3>
-          <p>
-            {country.code} - {country.emoji}
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
+const Title = styled.h1`
+  font-size: 50px;
+  color: ${({ theme }) => theme.colors.primary};
+`;
 
-export async function getStaticProps() {
-  const { data } = await client.query({
-    query: gql`
-      query Countries {
-        countries {
-          code
-          name
-          emoji
-        }
-      }
-    `,
-  });
-
-  return {
-    props: {
-      countries: data.countries.slice(0, 4),
-    },
-  };
+export default function Index() {
+  return <Title>My page</Title>;
 }
